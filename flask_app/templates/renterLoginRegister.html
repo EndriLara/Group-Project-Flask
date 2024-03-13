@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rent House</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <!-- Link to Font Awesome CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/font-awesome.css') }}">
+    <!-- Link to your custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<style>
+    img {
+        width: 250px;
+        height:fit-content;
+        margin-top: 50px;
+    }
+    .loader {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* Add these properties to position the loader properly */
+        position: relative;
+        width: 90px;
+        height: 103px;
+       /* Adjust the height to accommodate the "h4" span */
+      }
+      
+      .loader div {
+        position: absolute;
+        width: 50px;
+        height: 31px;
+      }
+      
+      .rot {
+        transform: rotate(150deg);
+      }
+      
+      .rot2 {
+        transform: rotate(20deg);
+      }
+      
+      .loader div:nth-of-type(2) {
+        transform: rotate(60deg);
+      }
+      
+      .loader div:nth-of-type(3) {
+        transform: rotate(-60deg);
+      }
+      
+      .loader div div {
+        width: 100%;
+        height: 100%;
+        position: relative;
+      }
+      
+      .loader div div span {
+        position: absolute;
+        width: 4px;
+        height: 0%;
+        background: white;
+        z-index: 999999;
+      }
+      
+      .h1 {
+        left: 0;
+        animation: load1 3.2s ease infinite;
+      }
+      
+      .h2 {
+        right: 0;
+        animation: load2 3.2s ease 0.4s infinite;
+      }
+      
+      .h3 {
+        right: 0;
+        animation: load3 3.2s ease 0.8s infinite;
+      }
+      
+      .h4 {
+        top: 10px;
+        left: 23px;
+        animation: load4 3.2s ease 1s infinite;
+        transform: rotate(90deg);
+      }
+      
+      .h5 {
+        bottom: 0;
+        animation: load5 3.2s ease 1.2s infinite;
+      }
+      
+      .h6 {
+        left: 0;
+        animation: load6 3.2s ease 1.3s infinite;
+      }
+      
+      @keyframes load1 {
+        0% {
+          bottom: 0;
+          height: 0;
+        }
+      
+        6.944444444% {
+          bottom: 0;
+          height: 100%;
+        }
+      
+        50% {
+          top: 0;
+          height: 100%;
+        }
+      
+        59.944444433% {
+          top: 0;
+          height: 0;
+        }
+        /*   91.6666667%{top:0;height:0%;} */
+      }
+      
+      @keyframes load2 {
+        0% {
+          top: 0;
+          height: 0;
+        }
+      
+        6.944444444% {
+          top: 0;
+          height: 100%;
+        }
+      
+        50% {
+          bottom: 0;
+          height: 100%;
+        }
+      
+        59.944444433% {
+          bottom: 0;
+          height: 0;
+        }
+        /*   91.6666667%{bottom:0;height:0%;} */
+      }
+      
+      @keyframes load3 {
+        0% {
+          top: 0;
+          height: 0;
+        }
+      
+        6.944444444% {
+          top: 0;
+          height: 100%;
+        }
+      
+        50% {
+          bottom: 0;
+          height: 100%;
+        }
+      
+        59.94444443% {
+          bottom: 0;
+          height: 0;
+        }
+        /*   91.6666667%{bottom:0;height:0%;} */
+      }
+      
+      @keyframes load4 {
+        0% {
+          top: 37px;
+          left: 23px;
+          height: 134%;
+        }
+      
+        6.944444444% {
+          top: 10px;
+          height: 134%;
+        }
+      
+        50% {
+          bottom: 10px;
+          height: 134%;
+        }
+      
+        59.94444443% {
+          bottom: 0;
+          height: 0;
+        }
+        /*   91.6666667%{bottom:0;height:0%;} */
+      }
+      
+      @keyframes load5 {
+        0% {
+          bottom: 0;
+          height: 0;
+        }
+      
+        6.944444444% {
+          bottom: 0;
+          height: 100%;
+        }
+      
+        50% {
+          top: 0;
+          height: 100%;
+        }
+      
+        59.94444443% {
+          top: 0;
+          height: 0;
+        }
+        /*   91.6666667%{top:0;height:0%;} */
+      }
+      
+      @keyframes load6 {
+        0% {
+          bottom: 0;
+          height: 0;
+        }
+      
+        6.944444444% {
+          bottom: 0;
+          height: 100%;
+        }
+      
+        50% {
+          top: 0;
+          height: 100%;
+        }
+      
+        59.94444443% {
+          top: 0;
+          height: 0;
+        }
+        /*   91.6666667%{top:0;height:0%;} */
+      }
+</style>
+<body>
+    <nav class="d-flex justify-content-around bg-dark text-white align-items-center">    
+        <h1 class="d-flex justify-content-evenly align-items-center">Rent
+            <section class="loader">
+                <div>
+                <div>
+                    <span class="one h6"></span>
+                    <span class="two h3"></span>
+                </div>
+                </div>
+        
+                <div>
+                <div>
+                    <span class="one h1"></span>
+                </div>
+                </div>
+        
+                <div>
+                <div>
+                    <span class="two h2"></span>
+                </div>
+                </div>
+                <div>
+                <div>
+                    <span class="one h4"></span>
+                </div>
+                </div>
+            </section>
+        </h1>
+        <a class="text-decoration-none text-white" href="/login" class="active">Log in or register as renter</a>
+        <a class="text-decoration-none text-white" href="/login/owner">Log in or register as property owner</a>
+    </nav>
+
+    <section class="section section-bg" id="call-to-action" style="background-image: url({{ url_for('static', filename='images/mainImage.jpg') }})">
+        <div class="container">
+            <div class="row">
+                <div class="d-flex justify-content-around">
+                    <div class="w-50">
+            
+                        <form class="w-50 m-auto mt-4  p-3 h-100" action="/register/renter" method="post">
+                            <h2 class="text-center">Register</h2>
+                            
+                            <div class="mb-3">
+                                <label for="firstName" class="form-label"></label>
+                                <input type="text" class="form-control" name="firstName" id="firstName" placeholder="First Name">
+                            </div>
+                            {% with messages = get_flashed_messages(category_filter=["renterNameRegister"]) %}
+                              {% if messages %}
+                              
+                                {% for message in messages %}
+                                  <p class="text-danger text-center ">{{ message }}</p>
+                                {% endfor %}
+                              
+                              {% endif %}
+                           {% endwith %}   
+                            <div class="mb-3">
+                                <label for="lastName" class="form-label"></label>
+                                <input type="text" class="form-control" name="lastName" id="lastName" placeholder="Last Name">
+                            </div>
+                            {% with messages = get_flashed_messages(category_filter=["renterlastNameRegister"]) %}
+                                {% if messages %}
+                          
+                                  {% for message in messages %}
+                                    <p class="text-danger text-center">{{ message }}</p>
+                                  {% endfor %}
+                                  
+                                {% endif %}
+                            {% endwith %}
+                            <div class="mb-3">
+                                <label for="description"></label>
+                                <textarea class="form-control" name ="description" id="description" rows="3" placeholder="Description"></textarea>
+                            </div>
+                            {% with messages = get_flashed_messages(category_filter=["renterDescriptionRegister"]) %}
+                              {% if messages %}
+                        
+                                {% for message in messages %}
+                                  <p class="text-danger text-center">{{ message }}</p>
+                                {% endfor %}
+                                
+                              {% endif %}
+                            {% endwith %}
+                            <div class="mb-3">
+                                <label for="email" class="form-label"></label>
+                                <input type="email" class="form-control" name="email" id="email" placeholder="Enter email address">
+                            </div>
+                            {% with messages = get_flashed_messages(category_filter=["renterEmailRegister"]) %}
+                                {% if messages %}
+                          
+                                  {% for message in messages %}
+                                    <p class="text-danger text-center">{{ message }}</p>
+                                  {% endfor %}
+                          
+                                {% endif %}
+                              {% endwith %}
+                            <div class="mb-3">
+                                <label for="password" class="form-label"></label>
+                                <input type="password" class="form-control" name="password" id="password" placeholder="Enter Password">
+                            </div>
+                            {% with messages = get_flashed_messages(category_filter=["renterPasswordRegister"]) %}
+                              {% if messages %}
+                          
+                                {% for message in messages %}
+                                  <p class="text-danger text-center">{{ message }}</p>
+                                {% endfor %}
+                          
+                              {% endif %}
+                            {% endwith %}
+                            <div class="mb-3">
+                                <label for="password" class="form-label"></label>
+                                <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="Confirm PW">
+                            </div>
+                            {% with messages = get_flashed_messages(category_filter=["renterConfirmPasswordRegister"]) %}
+                            {% if messages %}
+                      
+                              {% for message in messages %}
+                                <p class="text-danger text-center">{{ message }}</p>
+                              {% endfor %}
+                            {% endif %}
+                          {% endwith %}
+                          {% with messages = get_flashed_messages(category_filter=["errorRenterPasswordRegister"]) %}
+                            {% if messages %}
+                    
+                              {% for message in messages %}
+                                <p class="text-danger text-center">{{ message }}</p>
+                              {% endfor %}
+                    
+                            {% endif %}
+                          {% endwith %}
+                          {% with messages = get_flashed_messages(category_filter=["renterRegisterError"]) %}
+                              {% if messages %}
+                                    
+                                  {% for message in messages %}
+                                    <p class="text-danger">{{ message }}</p>
+                                  {% endfor %}
+                                    
+                              {% endif %}
+                          {% endwith %}
+                                
+                            <button type="submit" class="btn btn-primary">Register</button>
+                            
+                        </form>
+                        
+                        
+                    </div>
+                    
+                    <div class="w-50 " >
+                        <form class="w-50 m-auto mt-4  p-3 h-100" action="/login/renter" method="post">
+                            <h2 class="text-center">Login</h2>
+                            <div class="mb-3">
+                                <label for="email" class="form-label"></label>
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Enter email address">
+                            </div>
+                            {% with messages = get_flashed_messages(category_filter=["renterEmailLogin"]) %}
+                              {% if messages %}
+                            
+                                {% for message in messages %}
+                                  <p class="text-danger text-center">{{ message }}</p>
+                                {% endfor %}
+                              
+                              {% endif %}
+                            {% endwith %}
+            
+                            <div class="mb-3">
+                                <label for="password" class="form-label"></label>
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                            </div>
+                            {% with messages = get_flashed_messages(category_filter=["renterPasswordLogin"]) %}
+                              {% if messages %}
+                                
+                                {% for message in messages %}
+                                    <p class="text-danger text-center">{{ message }}</p>
+                                {% endfor %}
+                                
+                              {% endif %}
+                            {% endwith %}
+                            <button type="submit" class="btn btn-primary">Login</button>
+            
+                        </form>
+                    </div>
+            </div>
+        </div>
+    </section>
+
+        
+        
+    </div>
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>
+                        Copyright © 2024 Coding Dojo Korca
+                        - Powered by: <a href="https://www.codingdojo.com/">Coding Dojo</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+<!-- jQuery -->
+<script src="{{ url_for('static', filename='js/jquery-2.1.0.min.js') }}"></script>
+
+<!-- Bootstrap -->
+<script src="{{ url_for('static', filename='js/popper.js') }}"></script>
+<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+
+<!-- Plugins -->
+<script src="{{ url_for('static', filename='js/scrollreveal.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/waypoints.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.counterup.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/imgfix.min.js') }}"></script> 
+<script src="{{ url_for('static', filename='js/mixitup.js') }}"></script> 
+<script src="{{ url_for('static', filename='js/accordions.js') }}"></script>
+
+<!-- Global Init -->
+<script src="{{ url_for('static', filename='js/custom.js') }}"></script>
+</body>
+</html>

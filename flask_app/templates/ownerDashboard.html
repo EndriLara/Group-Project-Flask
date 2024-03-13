@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
+    
+
+    <title>Rent House</title>
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <!-- Link to Font Awesome CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/font-awesome.css') }}">
+    <!-- Link to your custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+
+    </head>
+    <style>
+        img {
+            width: 250px;
+            height:fit-content;
+            margin-top: 50px;
+        }
+        .loader {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* Add these properties to position the loader properly */
+            position: relative;
+            width: 90px;
+            height: 103px;
+           /* Adjust the height to accommodate the "h4" span */
+          }
+          
+          .loader div {
+            position: absolute;
+            width: 50px;
+            height: 31px;
+          }
+          
+          .rot {
+            transform: rotate(150deg);
+          }
+          
+          .rot2 {
+            transform: rotate(20deg);
+          }
+          
+          .loader div:nth-of-type(2) {
+            transform: rotate(60deg);
+          }
+          
+          .loader div:nth-of-type(3) {
+            transform: rotate(-60deg);
+          }
+          
+          .loader div div {
+            width: 100%;
+            height: 100%;
+            position: relative;
+          }
+          
+          .loader div div span {
+            position: absolute;
+            width: 4px;
+            height: 0%;
+            background: white;
+            z-index: 999999;
+          }
+          
+          .h1 {
+            left: 0;
+            animation: load1 3.2s ease infinite;
+          }
+          
+          .h2 {
+            right: 0;
+            animation: load2 3.2s ease 0.4s infinite;
+          }
+          
+          .h3 {
+            right: 0;
+            animation: load3 3.2s ease 0.8s infinite;
+          }
+          
+          .h4 {
+            top: 10px;
+            left: 23px;
+            animation: load4 3.2s ease 1s infinite;
+            transform: rotate(90deg);
+          }
+          
+          .h5 {
+            bottom: 0;
+            animation: load5 3.2s ease 1.2s infinite;
+          }
+          
+          .h6 {
+            left: 0;
+            animation: load6 3.2s ease 1.3s infinite;
+          }
+          
+          @keyframes load1 {
+            0% {
+              bottom: 0;
+              height: 0;
+            }
+          
+            6.944444444% {
+              bottom: 0;
+              height: 100%;
+            }
+          
+            50% {
+              top: 0;
+              height: 100%;
+            }
+          
+            59.944444433% {
+              top: 0;
+              height: 0;
+            }
+            /*   91.6666667%{top:0;height:0%;} */
+          }
+          
+          @keyframes load2 {
+            0% {
+              top: 0;
+              height: 0;
+            }
+          
+            6.944444444% {
+              top: 0;
+              height: 100%;
+            }
+          
+            50% {
+              bottom: 0;
+              height: 100%;
+            }
+          
+            59.944444433% {
+              bottom: 0;
+              height: 0;
+            }
+            /*   91.6666667%{bottom:0;height:0%;} */
+          }
+          
+          @keyframes load3 {
+            0% {
+              top: 0;
+              height: 0;
+            }
+          
+            6.944444444% {
+              top: 0;
+              height: 100%;
+            }
+          
+            50% {
+              bottom: 0;
+              height: 100%;
+            }
+          
+            59.94444443% {
+              bottom: 0;
+              height: 0;
+            }
+            /*   91.6666667%{bottom:0;height:0%;} */
+          }
+          
+          @keyframes load4 {
+            0% {
+              top: 37px;
+              left: 23px;
+              height: 134%;
+            }
+          
+            6.944444444% {
+              top: 10px;
+              height: 134%;
+            }
+          
+            50% {
+              bottom: 10px;
+              height: 134%;
+            }
+          
+            59.94444443% {
+              bottom: 0;
+              height: 0;
+            }
+            /*   91.6666667%{bottom:0;height:0%;} */
+          }
+          
+          @keyframes load5 {
+            0% {
+              bottom: 0;
+              height: 0;
+            }
+          
+            6.944444444% {
+              bottom: 0;
+              height: 100%;
+            }
+          
+            50% {
+              top: 0;
+              height: 100%;
+            }
+          
+            59.94444443% {
+              top: 0;
+              height: 0;
+            }
+            /*   91.6666667%{top:0;height:0%;} */
+          }
+          
+          @keyframes load6 {
+            0% {
+              bottom: 0;
+              height: 0;
+            }
+          
+            6.944444444% {
+              bottom: 0;
+              height: 100%;
+            }
+          
+            50% {
+              top: 0;
+              height: 100%;
+            }
+          
+            59.94444443% {
+              top: 0;
+              height: 0;
+            }
+            /*   91.6666667%{top:0;height:0%;} */
+          }
+          .left-icon img {
+            width: 150px;
+            height: auto;
+          }
+    </style>
+    <body>
+    
+    <!-- ***** Preloader Start ***** -->
+    <div id="js-preloader" class="js-preloader">
+      <div class="preloader-inner">
+        <span class="dot"></span>
+        <div class="dots">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+    <!-- ***** Preloader End ***** -->
+    
+    
+    <!-- ***** Header Area Start ***** -->
+    <header class="header-area header-sticky">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="main-nav">
+                        <!-- ***** Logo Start ***** -->
+                        <a href="ownerDashboard.html" class="logo d-flex justify-content-evenly align-items-center">Rent
+                            <section class="loader">
+                            <div>
+                            <div>
+                                <span class="one h6"></span>
+                                <span class="two h3"></span>
+                            </div>
+                            </div>
+                    
+                            <div>
+                            <div>
+                                <span class="one h1"></span>
+                            </div>
+                            </div>
+                    
+                            <div>
+                            <div>
+                                <span class="two h2"></span>
+                            </div>
+                            </div>
+                            <div>
+                            <div>
+                                <span class="one h4"></span>
+                            </div>
+                            </div>
+                            </section>
+                            
+                        </a>
+                        <!-- ***** Logo End ***** -->
+                        <!-- ***** Menu Start ***** -->
+                        <ul class="nav">
+                            <li><a href="/owner/dashboard" class="active">My houses</a></li>
+                            <li><a href="/owner/properties/new">Add House</a></li>
+                            <li><a href="/logout/owner">Log Out</a></li>
+                            
+                        </ul>        
+                        <a class='menu-trigger'>
+                            <span>Menu</span>
+                        </a>
+                        <!-- ***** Menu End ***** -->
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ***** Header Area End ***** -->
+
+    <!-- ***** Main Banner Area Start ***** -->
+    <div class="main-banner" id="top">
+        <video autoplay muted loop id="bg-video">
+            <source src="{{ url_for('static', filename='images/video.mp4') }}" type="video/mp4" />
+        </video>
+
+        <div class="video-overlay header-text">
+            <div class="caption">
+                <h6>Welcome {{loggedOwner.first_name}} {{loggedOwner.last_name}}!</h6>
+                <p>You are in the right place to find the right tenant for your property.<br> 
+                    Click the Add House button to add the property you want to rent.</p>
+            </div>
+        </div>
+    </div>
+    <!-- ***** Main Banner Area End ***** -->
+
+   <!-- ***** Cars Starts ***** -->
+    <section class="section" id="trainers">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3">
+                    <div class="section-heading">
+                        <h2>My <em>Properties</em></h2>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+              {% for property in properties %}
+                <div class="col-lg-4">
+                   
+                        <div class="image-thumb">
+                            <img src="{{ url_for('static', filename='images/red-and-white-house-image.png') }}" alt="HousePicDefault">
+                        </div>
+                        <div class="trainer-item">
+                            <div class="down-content">
+                                <span>
+                                    <p>Type: {{property.type}}</p>  
+                                </span>
+
+                                <p>{{property.description}}</p>
+
+                                <p>Address: {{property.address}}</p>
+                                <p>Rent: {{property.rent}}</p>
+
+                                <ul class="social-icons">
+                                    <li><a href="/owner/properties/{{property.id}}">+ View More</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                   
+                </div>
+              {% endfor %}
+            </div>
+
+            <br>
+        </div>
+    </section>
+    <!-- ***** Cars Ends ***** -->
+
+    <section class="section section-bg" id="schedule" style="background-image: url({{ url_for('static', filename='images/about-fullscreen-1-1920x700.jpg') }})">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3">
+                    <div class="section-heading dark-bg">
+                        <h2>Read <em>About Us</em></h2><br>
+                        
+                        <p>Three Codin Dojo academy students, Gentian Hoxha, Anxhela Fecanji, and Endri Lara, collaborated to develop a web application aimed at enhancing communication between renters. </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="cta-content text-center">
+                        <p>The application simplifies the process of renting properties for both landlords and tenants, fostering a seamless interaction. </p>
+
+                        <p>With a focus on user experience, the team strived to create an intuitive and efficient platform for users to easily find and rent properties that meet their needs.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ***** Call to Action End ***** -->
+
+    <!-- ***** Testimonials Item Start ***** -->
+    <section class="section" id="features">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3">
+                    <div class="section-heading">
+                        <h2>Read our <em>Testimonials</em></h2>
+                        
+                        
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <ul class="features-items ">
+                        <li class="feature-item">
+                            <div class="left-icon">
+                              <img src="{{ url_for('static', filename='images/features-first-icon.png') }}" alt="First One">
+                            </div>
+                            <div class="right-content">
+                                <h4>Sindi Hamataj</h4>
+                                <p><em>"App juaj eshte i kuptueshem dhe lehtesisht e perdorueshem.Nepermjet ketij app gjeta lehtesisht qeramarresin per shtepine time."</em></p>
+                            </div>
+                        </li>
+                        <li class="feature-item">
+                            <div class="left-icon">
+                              <img src="{{ url_for('static', filename='images/features-first-icon.png') }}" alt="second one">
+                            </div>
+                            <div class="right-content">
+                                <h4>Klea Qylafi</h4>
+                                <p><em>"Si nje studente e sapo zhvendosur ne nje qytet te ri ky app me zgjidhi pproblemin kryesor: Gjetjen e nje shtepie te re dhe komode. Faleminderit Rent House"</em></p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- ***** Testimonials Item End ***** -->
+    
+    <!-- ***** Footer Start ***** -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>
+                        Copyright © 2024 Coding Dojo Korca
+                        - Powered by: <a href="https://www.codingdojo.com/">Coding Dojo</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+<!-- jQuery -->
+<script src="{{ url_for('static', filename='js/jquery-2.1.0.min.js') }}"></script>
+
+<!-- Bootstrap -->
+<script src="{{ url_for('static', filename='js/popper.js') }}"></script>
+<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+
+<!-- Plugins -->
+<script src="{{ url_for('static', filename='js/scrollreveal.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/waypoints.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.counterup.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/imgfix.min.js') }}"></script> 
+<script src="{{ url_for('static', filename='js/mixitup.js') }}"></script> 
+<script src="{{ url_for('static', filename='js/accordions.js') }}"></script>
+
+<!-- Global Init -->
+<script src="{{ url_for('static', filename='js/custom.js') }}"></script>
+
+  </body>
+</html>
